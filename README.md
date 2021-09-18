@@ -3,5 +3,7 @@
 
 计算 ΔE （CIEDE2000） 和欧几里得距离
 
+该库是我之后程序的一个依赖库，所以按需求进行了精简
+
 ## NuGet
 [![NuGet version (ColorPlusLibLite)](https://img.shields.io/badge/nuget-ColorPlusLibLite-blue)](https://www.nuget.org/packages/ColorPlusLibLite)
