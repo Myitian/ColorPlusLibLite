@@ -21,10 +21,10 @@ namespace Myitian.ColorPlusLibLite
 		public static double Delta_E00_Square(in ColorCIELab lab0, in ColorCIELab lab1)
         {
 			return Delta_E00_Square(lab0.L, lab0.A, lab0.B, lab1.L, lab1.A, lab1.B);
-        }
-		public static double Delta_E00_Square(double L1, double a1, double b1, double L2, double a2, double b2)
+		}
+		public static double Delta_E00_Square(double L1, double a1, double b1, double L2, double a2, double b2, double kL = 1, double kC = 1, double kH = 1)
 		{
-			//标准条件：
+			//标准条件：																						  
 			//	D65光源、
 			//	照度1000lx、
 			//	大于4°视场、
@@ -32,11 +32,7 @@ namespace Myitian.ColorPlusLibLite
 			//	CIELAB色差在0~5之间、
 			//	背景为中等明度的灰（L*=50）
 			double
-				kL = 1,
-				kC = 1,
-				kH = 1,
-
-			//1、计算C*ab
+				//1、计算C*ab
 				_25pow7 = 6103515625,													//6103515625=25^7
 				Cab_Avg = (Chroma(a1, b1) + Chroma(a2, b2)) / 2,                        //两个样品彩度的算术平均值
 				Cab_Avg_Pow7 = Math.Pow(Cab_Avg, 7),                                    //两彩度平均值的7次方
@@ -110,15 +106,7 @@ namespace Myitian.ColorPlusLibLite
 		/// <returns></returns>
 		public static double Hue(double a, double b)
 		{
-			double h = Math_.Degrees(Math.Atan(b / a));
-
-			if (a == 0)
-				return 0;
-			if (a < 0)
-				return 180 + h;
-			if (b > 0)
-				return h;
-			return 360 + h;
+			return Math_.Degrees_Positive(Math.Atan2(b, a));
 		}
 	}
 }

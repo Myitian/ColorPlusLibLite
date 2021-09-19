@@ -8,6 +8,11 @@ namespace Myitian.ColorPlusLibLite.XMath
         {
             return 180 / Math.PI * rad;
         }
+        public static double Degrees_Positive(double rad)
+        {
+            double d = 180 / Math.PI * rad;
+            return d < 0 ? d + 360 : d;
+        }
         public static double Radians(double deg)
         {
             return Math.PI / 180 * deg;
