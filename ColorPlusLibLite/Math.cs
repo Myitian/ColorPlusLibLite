@@ -39,10 +39,18 @@ namespace Myitian.ColorPlusLibLite.XMath
         {
             return Math.Sqrt(EuclideanDistance_Square(x0, y0, z0, x1, y1, z1));
         }
+        public static double EuclideanDistance(in ColorBase col0, in ColorBase col1)
+        {
+            return Math.Sqrt(EuclideanDistance_Square(in col0, in col1));
+        }
 
         public static double EuclideanDistance_Square(double x0, double y0, double x1, double y1)
         {
             return Math.Pow(x0 - x1, 2) + Math.Pow(y0 - y1, 2);
+        }
+        public static double EuclideanDistance_Square(in ColorBase col0, in ColorBase col1)
+        {
+            return EuclideanDistance_Square(col0.V0, col0.V1, col0.V2, col1.V0, col1.V1, col1.V2);
         }
         public static double EuclideanDistance_Square(double x0, double y0, double z0, double x1, double y1, double z1)
         {
