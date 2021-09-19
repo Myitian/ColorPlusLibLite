@@ -12,6 +12,12 @@ namespace Myitian.ColorPlusLibLite.XMath
         {
             return Math.PI / 180 * deg;
         }
+        public static double SafeSqrt(double d)
+        {
+            d = Math.Sqrt(d);
+            return d == double.NaN ? 0 : d;
+            //return Math.Sqrt(Math.Abs(d));
+        }
 
         /// <summary>
         /// 欧几里得距离
@@ -23,7 +29,7 @@ namespace Myitian.ColorPlusLibLite.XMath
         /// <returns></returns>
         public static double EuclideanDistance(double x0, double y0, double x1, double y1)
         {
-            return Math.Sqrt(EuclideanDistance_Square(x0, y0, x1, y1));
+            return SafeSqrt(EuclideanDistance_Square(x0, y0, x1, y1));
         }
         /// <summary>
         /// 欧几里得距离
@@ -37,11 +43,11 @@ namespace Myitian.ColorPlusLibLite.XMath
         /// <returns></returns>
         public static double EuclideanDistance(double x0, double y0, double z0, double x1, double y1, double z1)
         {
-            return Math.Sqrt(EuclideanDistance_Square(x0, y0, z0, x1, y1, z1));
+            return SafeSqrt(EuclideanDistance_Square(x0, y0, z0, x1, y1, z1));
         }
         public static double EuclideanDistance(in ColorBase col0, in ColorBase col1)
         {
-            return Math.Sqrt(EuclideanDistance_Square(in col0, in col1));
+            return SafeSqrt(EuclideanDistance_Square(in col0, in col1));
         }
 
         public static double EuclideanDistance_Square(double x0, double y0, double x1, double y1)

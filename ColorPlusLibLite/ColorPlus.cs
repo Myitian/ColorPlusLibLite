@@ -12,11 +12,11 @@ namespace Myitian.ColorPlusLibLite
 		/// <returns>ΔE00</returns>
 		public static double Delta_E00(in ColorCIELab lab0, in ColorCIELab lab1)
 		{
-			return Math.Sqrt(Delta_E00_Square(lab0, lab1));
+			return Math_.SafeSqrt(Delta_E00_Square(lab0, lab1));
 		}
 		public static double Delta_E00(double L1, double a1, double b1, double L2, double a2, double b2)
 		{
-			return Math.Sqrt(Delta_E00_Square(L1, a1, b1, L2, a2, b2));
+			return Math_.SafeSqrt(Delta_E00_Square(L1, a1, b1, L2, a2, b2));
 		}
 		public static double Delta_E00_Square(in ColorCIELab lab0, in ColorCIELab lab1)
         {
@@ -63,14 +63,14 @@ namespace Myitian.ColorPlusLibLite
 				Delta_L_ = L_1 - L_2,
 				Delta_C_ab = C_ab1 - C_ab2,
 				Delta_h_ab = Hue(a_1, b_1) - Hue(a_2, b_2),
-				Delta_H_ab = 2 * Math.Sqrt(C_ab1 * C_ab2) * Math.Sin(Math_.Radians(Delta_h_ab) / 2),
+				Delta_H_ab = 2 * Math_.SafeSqrt(C_ab1 * C_ab2) * Math.Sin(Math_.Radians(Delta_h_ab) / 2),
 
 			//4、计算SL、SC、SH、T和RT(由RC计算得来)
 				L__Avg = (L_1 + L_2) / 2,
 				C_ab_Avg = (C_ab1 + C_ab2) / 2,
 				h_ab_Avg = (h_ab1 + h_ab2) / 2,
 
-				SL = 1 + 0.015 * Math.Pow(L__Avg - 50, 2) / Math.Sqrt(20 + Math.Pow(L__Avg - 50, 2)),
+				SL = 1 + 0.015 * Math.Pow(L__Avg - 50, 2) / Math_.SafeSqrt(20 + Math.Pow(L__Avg - 50, 2)),
 				SC = 1 + 0.045 * C_ab_Avg,
 				T = 1 - 0.17 * Math.Cos(Math_.Radians(h_ab_Avg - 30))
 					  + 0.24 * Math.Cos(Math_.Radians(2 * h_ab_Avg))
@@ -79,7 +79,7 @@ namespace Myitian.ColorPlusLibLite
 				SH = 1 + 0.015 * C_ab_Avg * T,
 
 				C_ab_Avg_Pow7 = Math.Pow(C_ab_Avg, 7),
-				RC = 2 * Math.Sqrt(C_ab_Avg_Pow7 / (C_ab_Avg_Pow7 + _25pow7)),
+				RC = 2 * Math_.SafeSqrt(C_ab_Avg_Pow7 / (C_ab_Avg_Pow7 + _25pow7)),
 				DeltaTheta = 30 * Math.Exp(-Math.Pow((h_ab_Avg - 275) / 25, 2)),	//△θ以°为单位
 				RT = -Math.Sin(Math_.Radians(2 * DeltaTheta)) * RC,					//旋转函数RT
 
@@ -100,7 +100,7 @@ namespace Myitian.ColorPlusLibLite
 		/// <returns></returns>
 		public static double Chroma(double a, double b)
 		{
-			return Math.Sqrt(Math.Pow(a, 2) + Math.Pow(b, 2));
+			return Math_.SafeSqrt(Math.Pow(a, 2) + Math.Pow(b, 2));
 		}
 		/// <summary>
 		/// 色调角计算
@@ -112,11 +112,13 @@ namespace Myitian.ColorPlusLibLite
 		{
 			double h = Math_.Degrees(Math.Atan(b / a));
 
-			if (a < 0)      // a<0&&b>0, a<0&&b<0
+			if (a == 0)
+				return 0;
+			if (a < 0)
 				return 180 + h;
-			if (b > 0)      // a>0&&b>0
+			if (b > 0)
 				return h;
-			return 360 + h; // a>0&&b<0
+			return 360 + h;
 		}
 	}
 }
