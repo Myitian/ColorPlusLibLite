@@ -14,7 +14,7 @@ namespace Myitian.ColorPlusLibLite
 				{0.1500,0.0600},
 		};
 
-		public static ColorRGB SRGB_Companding(ColorRGB linearRGB)
+		public static ColorRGB SRGB_Companding(in ColorRGB linearRGB)
 		{
 			ColorRGB output = new ColorRGB(linearRGB)
 			{
@@ -34,7 +34,7 @@ namespace Myitian.ColorPlusLibLite
 				output.B = 1.055 * Math.Pow(linearRGB.B, 1 / 2.4) - 0.055;
 			return output;
 		}
-		public static ColorRGB Inverse_sRGB_Companding(ColorRGB sRGB)
+		public static ColorRGB Inverse_sRGB_Companding(in ColorRGB sRGB)
 		{
 			ColorRGB output = new ColorRGB(sRGB)
 			{
@@ -55,7 +55,7 @@ namespace Myitian.ColorPlusLibLite
 			return output;
 		}
 
-		public static Matrix GetConvertMatrix(double[,] xr_yr__xg_yg__xb_yb, double[] XW_YW_ZW)
+		public static Matrix GetConvertMatrix(in double[,] xr_yr__xg_yg__xb_yb, in double[] XW_YW_ZW)
         {
 			return GetConvertMatrix(
 				xr_yr__xg_yg__xb_yb[0, 0],
@@ -124,14 +124,42 @@ namespace Myitian.ColorPlusLibLite
 		public bool IsLinear { get; set; } = true;
 
 		public ColorRGB() { }
-		public ColorRGB(ColorRGB colorRGB)
+		public ColorRGB(byte r, byte g, byte b, bool isLinear = false)
+		{
+			R = r / 255d;
+			G = g / 255d;
+			B = b / 255d;
+			IsLinear = isLinear;
+		}
+		public ColorRGB(in byte[] rgb, bool isLinear = false)
+		{
+			R = rgb[0] / 255d;
+			G = rgb[1] / 255d;
+			B = rgb[2] / 255d;
+			IsLinear = isLinear;
+		}
+		public ColorRGB(double r, double g, double b, bool isLinear = false)
+		{
+			R = r;
+			G = g;
+			B = b;
+			IsLinear = isLinear;
+		}
+		public ColorRGB(in double[] rgb, bool isLinear = false)
+		{
+			R = rgb[0];
+			G = rgb[1];
+			B = rgb[2];
+			IsLinear = isLinear;
+		}
+		public ColorRGB(in ColorRGB colorRGB)
 		{
 			R = colorRGB.R;
 			G = colorRGB.G;
 			B = colorRGB.B;
 			IsLinear = colorRGB.IsLinear;
 		}
-		public ColorRGB(Color color)
+		public ColorRGB(in Color color)
 		{
 			R = color.R / 255d;
 			G = color.G / 255d;

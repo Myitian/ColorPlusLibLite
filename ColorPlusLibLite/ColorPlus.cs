@@ -9,16 +9,18 @@ namespace Myitian.ColorPlusLibLite
 		/// <summary>
 		/// CIE ΔE 2000色差公式
 		/// </summary>
-		/// <param name="L1"></param>
-		/// <param name="a1"></param>
-		/// <param name="b1"></param>
-		/// <param name="L2"></param>
-		/// <param name="a2"></param>
-		/// <param name="b2"></param>
 		/// <returns>ΔE00</returns>
+		public static double Delta_E00(in ColorCIELab lab0, in ColorCIELab lab1)
+		{
+			return Math.Sqrt(Delta_E00_Square(lab0, lab1));
+		}
 		public static double Delta_E00(double L1, double a1, double b1, double L2, double a2, double b2)
-        {
+		{
 			return Math.Sqrt(Delta_E00_Square(L1, a1, b1, L2, a2, b2));
+		}
+		public static double Delta_E00_Square(in ColorCIELab lab0, in ColorCIELab lab1)
+        {
+			return Delta_E00_Square(lab0.L, lab0.A, lab0.B, lab1.L, lab1.A, lab1.B);
         }
 		public static double Delta_E00_Square(double L1, double a1, double b1, double L2, double a2, double b2)
 		{

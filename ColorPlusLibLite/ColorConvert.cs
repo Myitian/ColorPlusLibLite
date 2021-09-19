@@ -8,7 +8,7 @@ namespace Myitian.ColorPlusLibLite
 		public static readonly double[] RefWhiteD65 = new double[] { 0.95047, 1.00000, 1.08883 };
 		// from http://www.brucelindbloom.com
 		#region RGB - XYZ
-		public static ColorXYZ To_XYZ(ColorRGB linearRGB)
+		public static ColorXYZ To_XYZ(in ColorRGB linearRGB)
 		{
 			Matrix M = RGBWorkingSpace.GetConvertMatrix(RGBWorkingSpace.sRGB_Primaries, RefWhiteD65);
 			Matrix XYZ = M * new Matrix(new double[] { linearRGB.R, linearRGB.G, linearRGB.B }, true);
@@ -22,7 +22,7 @@ namespace Myitian.ColorPlusLibLite
 		}
 		#endregion RGB - XYZ
 		#region XYZ - LinearRGB
-		public static ColorRGB To_LinearRGB(ColorXYZ colorXYZ)
+		public static ColorRGB To_LinearRGB(in ColorXYZ colorXYZ)
 		{
 			Matrix M = RGBWorkingSpace.GetConvertMatrix(RGBWorkingSpace.sRGB_Primaries, RefWhiteD65).Inverse();
 			Matrix XYZ = M * new Matrix(new double[] { colorXYZ.X, colorXYZ.Y, colorXYZ.Z }, true);
@@ -38,7 +38,7 @@ namespace Myitian.ColorPlusLibLite
 		#endregion XYZ - LinearRGB
 
 		#region CIELab - XYZ
-		public static ColorXYZ To_XYZ(ColorCIELab colorCIELab)
+		public static ColorXYZ To_XYZ(in ColorCIELab colorCIELab)
 		{
 			double
 				Epsilon = 216d / 24389,
@@ -82,7 +82,7 @@ namespace Myitian.ColorPlusLibLite
 		}
 		#endregion CIELab - XYZ
 		#region XYZ - CIELab
-		public static ColorCIELab To_CIELab(ColorXYZ colorXYZ)
+		public static ColorCIELab To_CIELab(in ColorXYZ colorXYZ)
 		{
 			double
 				Epsilon = 216d / 24389,

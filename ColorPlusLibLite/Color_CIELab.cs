@@ -7,7 +7,7 @@
 		public double B { get { return V2; } set { V2 = value; } }
 
 		public ColorCIELab() { }
-		public ColorCIELab(ColorCIELab colorCIELab)
+		public ColorCIELab(in ColorCIELab colorCIELab)
 		{
 			L = colorCIELab.L;
 			A = colorCIELab.A;

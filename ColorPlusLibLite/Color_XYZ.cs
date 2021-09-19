@@ -7,7 +7,7 @@
 		public double Z { get { return V2; } set { V2 = value; } }
 
 		public ColorXYZ() { }
-		public ColorXYZ(ColorXYZ colorXYZ)
+		public ColorXYZ(in ColorXYZ colorXYZ)
 		{
 			X = colorXYZ.X;
 			Y = colorXYZ.Y;

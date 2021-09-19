@@ -127,7 +127,7 @@ namespace Myitian.ColorPlusLibLite.XMath
 
         #region 操作符重载 *
 
-        public static Matrix operator *(Matrix a, Matrix b)
+        public static Matrix operator *(in Matrix a, in Matrix b)
         {
             if (a.Column != b.Row) throw new Exception("行数或列数不匹配");
             Matrix result = new Matrix(a.Row, b.Column);
@@ -151,11 +151,11 @@ namespace Myitian.ColorPlusLibLite.XMath
             return strRet;
         }
 
-        public static implicit operator Matrix(double[,] members)
+        public static implicit operator Matrix(in double[,] members)
         {
             return new Matrix(members);
         }
-        public static implicit operator double[,](Matrix matrix)
+        public static implicit operator double[,](in Matrix matrix)
         {
             return matrix.Data;
         }
@@ -164,7 +164,7 @@ namespace Myitian.ColorPlusLibLite.XMath
         {
             return GetInverseMatrix(this);
         }
-        public static Matrix GetInverseMatrix(Matrix martix)
+        public static Matrix GetInverseMatrix(in Matrix martix)
         {
             int
                 m = martix.Data.GetLength(0),
